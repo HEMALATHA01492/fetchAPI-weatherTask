@@ -16,7 +16,7 @@ input1.setAttribute('type','text');
 input1.setAttribute('id','country-input');
 input1.setAttribute('class','p-2 m-2 border none outline none border-bottom 2px solid blue rounded-3');
 input1.setAttribute('style','width:275px');
-input1.setAttribute('placeholder','Enter the country name here...');
+input1.setAttribute('placeholder','Enter the country name (eg.china)');
 div3.appendChild(input1);
 
 let button1=document.createElement('button');
