@@ -1,6 +1,6 @@
-
 let div1=document.createElement('div');
 div1.setAttribute('class','p-4 bg-primary text-center text-bg-dark border border-dark justify-content-center');
+div1.setAttribute('style','height:200vh')
 div1.innerText="Restcountries and Weather Using Fetch API";
 
 
@@ -16,14 +16,14 @@ input1.setAttribute('type','text');
 input1.setAttribute('id','country-input');
 input1.setAttribute('class','p-2 m-2 border none outline none border-bottom 2px solid blue rounded-3');
 input1.setAttribute('style','width:275px');
-input1.setAttribute('placeholder','Enter country name (example:china)');
+input1.setAttribute('placeholder','Enter the country name here...');
 div3.appendChild(input1);
 
 let button1=document.createElement('button');
 button1.setAttribute('id','search-btn');
 button1.setAttribute('class','p-2 m-2 bg-primary text-center text-bg-dark  rounded-4 border primary');
 button1.setAttribute('style','width:100px')
-button1.innerText='Search'
+button1.innerText='Search';
 div3.appendChild(button1);
 div2.appendChild(div3);
 
@@ -32,22 +32,22 @@ div4.setAttribute('id','result');
 div4.setAttribute('class','flag-img bg-light text-dark');
 div2.appendChild(div4);
 
-let div5=document.createElement('div');
-div5.setAttribute('id','main');
-div5.setAttribute('class','bg-light text-dark');
-let button2=document.createElement('button');
-button2.setAttribute('id','weather-btn');
-button2.setAttribute('class','p-2 m-2 bg-primary text-center text-bg-dark  rounded-4 border primary');
-button2.setAttribute('style','width:200px')
-button2.innerText='Check Weather Here'
-div5.appendChild(button2);
+// let div5=document.createElement('div');
+// div5.setAttribute('id','main');
+// div5.setAttribute('class','bg-light text-dark');
+// let button2=document.createElement('button');
+// button2.setAttribute('id','weather-btn');
+// button2.setAttribute('class','p-2 m-2 bg-primary text-center text-bg-dark  rounded-4 border primary');
+// button2.setAttribute('style','width:200px');
+// button2.innerText='Check Weather Here';
+// div5.appendChild(button2);
 
-let div6=document.createElement('div');
-div6.setAttribute('id','weatherInfo');
-div6.setAttribute('class','bg-light text-dark');
+// let div6=document.createElement('div');
+// div6.setAttribute('id','weatherInfo');
+// div6.setAttribute('class','bg-light text-dark');
 
-div5.appendChild(div6);
-div2.appendChild(div5);
+// div5.appendChild(div6);
+// div2.appendChild(div5);
 
 div1.appendChild(div2);
 document.body.appendChild(div1);
@@ -65,6 +65,8 @@ searchBtn.addEventListener("click",() =>{
     fetch(finalURL)
         .then((response) =>response.json())
         .then((data)=>{
+            let cityName=data[0].name.official;
+            console.log(cityName);
             console.log(data[0]);
             console.log(data[0].name.common);
             console.log(data[0].flags.png);
@@ -84,11 +86,16 @@ searchBtn.addEventListener("click",() =>{
                 </div>
                 <div class="m-3">
                     <h5 class="m-3">Country Code:<span>${data[0].car.signs[0]}</span></h5>
+                
                 </div>
+                <div class="bg-light text-dark">
+                 <button id="weather-btn" class="p-2 m-2 bg-primary text-center text-bg-dark  rounded-4 border primary">Check Weather Here</button>
+                 <div id='weatherInfo'>
+                 </div >
+               </div>
+              
            `;
-     });
-});
-console.log(countryInput.value);
+    
 
 const apiKey='38b051fcb3dc9f29dd478eb0985483b3';
 const apiUrl='https://api.openweathermap.org/data/2.5/weather?units=metric&q=';
@@ -97,10 +104,9 @@ let weatherBtn=document.getElementById("weather-btn");
 weatherBtn.addEventListener("click",() =>checkWeather())
 
 async function checkWeather(){
-    var cityName=countryInput.value;
     console.log(cityName);
     const response=await fetch(apiUrl + `${cityName}&appid=${apiKey}`);
-    var data1=await response.json();
+    let data1=await response.json();
     console.log(data1)
         weatherInfo.innerHTML=`
                 
@@ -118,3 +124,5 @@ async function checkWeather(){
                 
                 </div>`;
 }
+});
+});
